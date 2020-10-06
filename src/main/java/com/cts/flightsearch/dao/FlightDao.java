@@ -15,5 +15,6 @@ public interface FlightDao {
 	public List<Flight> getAllFlightDetails();
 	public List<Flight> getFlightDetailsWithPreference(String origin,String destination,int duration,String noOfStops,int fareLower,int fareUpper,String airline);
 	public List<Flight> getFlightWithFare(long fareLower,long fareUpper);
+	public List<Flight> getFlightbyAirline(String airline);
 	
 }
