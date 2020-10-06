@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="/webjars/bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<meta charset="ISO-8859-1">
+<title>Flights Details</title>
+<link th:href="@{/css/flights.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+		<header class="masthead mb-auto">
+			<div class="inner">
+				<h3 class="masthead-brand">Flight Search</h3>
+				<nav class="nav nav-masthead justify-content-center">
+					<a class="nav-link active" href="/flights/home" th:href="@{/flights/home}">Home</a>
+					<a class="nav-link active" href="/flights/allFlights" th:href="@{/flights/allFlights}">DashBoard</a>
+				</nav>
+			</div>
+		</header>
+		
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#getFlight">Search for Your Flights</button>
+		
+		<h2>List of Flight Details</h2>
+		<table class="table table-stripped">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Origin</td>
+					<td>Origin Code</td>
+					<td>Destination</td>
+					<td>Destination Code</td>
+					<td>Flight Number</td>
+					<td>Departure Time</td>
+					<td>Arrival Time</td>
+					<td>Flight Type</td>
+					<td>Via</td>
+					<td>Days of Operation</td>
+					<td>Duration of Flight</td>
+					<td>Price</td>
+					<td>Airlines</td>
+				</tr>
+			</thead>
+			<tr th:each="flight:${flights}" >
+				<td th:text="${flight.Id}">Id</td>
+				<td th:text="${flight.origin}">origin</td>
+				<td th:text="${flight.originCode}">originCode</td>
+				<td th:text="${flight.destination}">destination</td>
+				<td th:text="${flight.destinationCode}">destinationCode</td>
+				<td th:text="${flight.flightNumber}">flightNumber</td>
+				<td th:text="${flight.departureTime}">departureTime</td>
+				<td th:text="${flight.arrivalTime}">arrivalTime</td>
+				<td th:text="${flight.flightType}">flightType</td>
+				<td th:text="${flight.stop}">stop</td>
+				<td th:text="${flight.operationDays}">operationDays</td>
+				<td th:text="${flight.duration}">duration</td>
+				<td th:text="${flight.fare}">fare</td>
+				<td th:text="${flight.airline}">airline</td>
+			</tr>
+		</table>
+		<div class="modal fade" id="getFlight" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+			<form th:action="@{/flights/getFlight}" ,class="needs-validation", method="get">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel1">Enter preferences</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="origin" class="col-form-label">Origin</label> 
+								<input type="text" class="form-control" id="source" name="origin" autofocus required pattern="[a-zA-Z]+" title="Please enter Origin" oninvalid="this.setCustomValidity('Enter valid Origin')" oninput="this.setCustomValidity('')" >
+							</div>
+
+							<div class="form-group">
+								<label for="destination" class="col-form-label">Destination</label>
+								<input type="text" class="form-control" id="destination" name="destination" autofocus required pattern="[a-zA-Z]+" title="Please enter Destination" oninvalid="this.setCustomValidity('Enter valid Destination')" oninput="this.setCustomValidity('')" >
+							</div>
+
+							<div class="form-group">
+								<label for="duration" class="col-form-label">Duration of Travel</label>
+								<input type="number" class="form-control" id="duration" name="duration" value ="0" placeholder="Enter your duration of Travel" autofocus  pattern="[0-9]+" title="Please enter valid Duration" oninvalid="this.setCustomValidity('Please enter valid Duration')" oninput="this.setCustomValidity('')">
+							</div>
+							
+							<div class="form-group">
+								<label for="noOfStops" class="col-form-label">No Of Stops</label>
+								<select class="form-control" id="noOfStops" name="noOfStops">
+									<option value="Select noOfStops">Select Number of Stops</option>
+									<option value="0">Zero</option>
+								    <option value="1">One</option>
+								    <option value="2">Two</option>
+								</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="fare" class="col-form-label"> Price</label>
+								<input type="number" class="form-control" id="farelower" name="farelower" min="3000"  pattern="[0-9]+" placeholder="Enter Min fare">
+								<input type="number" class="form-control" id="fareupper" name="fareupper" max="10000"  pattern="[0-9]+" placeholder="Enter Max fare">
+							</div>
+							
+							<div class="form-group">
+								<label for="airline" class="col-form-label">Airline</label>
+								<select class="form-control" id="airline" name="airline">
+									<option value="Select Airlines">Select Airlines</option>
+									<option value="IndiGo">IndiGo</option>
+								    <option value="Air India">Air India</option>
+								    <option value="Air Asia">Air Asia</option>
+								    <option value="Emirates">Emirates</option>
+								    <option value="Etihad">Etihad</option>
+								</select>
+							</div>
+							
+							
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Search</button>
+							</div>
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
